@@ -1,10 +1,26 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
+
 
 const Login = () => {
+    const { signInUser } = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        try {
+            const user = await signInUser(email, password);
+            // const response = await axios.post('https://my-sql-server.vercel.app/login', { email, password });
+            toast.success('Login Successful');
+            navigate('/');
+
+        } catch (error) {
+
+            toast.error("Error logging in. Please try again.");
+
+        }
     };
 
     return (
@@ -38,6 +54,9 @@ const Login = () => {
             >
                 Login
             </button>
+            <div>
+                Don't have an account? <Link to="/auth/register" className="text-blue-600 underline">Register</Link>
+            </div>
         </form>
     );
 };

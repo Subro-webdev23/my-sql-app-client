@@ -16,7 +16,7 @@ const AddItem = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch("http://localhost:3000/items", {
+            const res = await fetch("https://my-sql-server.vercel.app/items", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

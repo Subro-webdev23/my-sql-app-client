@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import useAuth from "../../Hooks/useAuth";
 
 const Navber = () => {
+    const { user } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/add'}>Add Item</NavLink></li>
-        <li><NavLink to={'/items'}>All Item</NavLink></li>
+        <li><NavLink to={'/items'}>All Users</NavLink></li>
         <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
     </>
 
@@ -18,7 +19,9 @@ const Navber = () => {
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex space-x-6 font-medium">
-                    {links}
+                    {user ? links : <Link to="/auth/login" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition">
+                        Login/Register
+                    </Link>}
                 </ul>
 
                 {/* Mobile Menu Button */}
@@ -39,7 +42,9 @@ const Navber = () => {
             {/* Mobile Menu Links */}
             {isOpen && (
                 <ul className="md:hidden mt-4 space-y-2 px-4 font-medium">
-                    {links}
+                    {user ? links : <Link to="/auth/login" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition">
+                        Login/Register
+                    </Link>}
                 </ul>
             )}
         </nav>

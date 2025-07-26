@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <DashboardHome userRole={role} />
+                element: <DashboardHome />
             }
         ]
     }
