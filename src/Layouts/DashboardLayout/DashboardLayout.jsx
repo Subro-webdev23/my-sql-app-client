@@ -3,11 +3,11 @@ import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 
 const DashboardLayout = () => {
-    const { logOut } = useAuth();
+    const { setUser } = useAuth();
     const navigate = useNavigate();
     const handleLogout = async () => {
         try {
-            const user = await logOut();
+            setUser(null)
             toast.success('Logout Successful');
             navigate('/');
         } catch (error) {

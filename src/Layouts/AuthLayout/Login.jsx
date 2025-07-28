@@ -1,25 +1,27 @@
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 const Login = () => {
-    const { signInUser } = useAuth();
+    const { setUser } = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         try {
-            const user = await signInUser(email, password);
-            // const response = await axios.post('https://my-sql-server.vercel.app/login', { email, password });
-            toast.success('Login Successful');
-            navigate('/');
+            const response = await axios.post('https://my-sql-server.vercel.app/login', { email, password });
+            console.log(response.data.user);
 
+            setUser(response.data.user)
+            navigate('/')
         } catch (error) {
-
-            toast.error("Error logging in. Please try again.");
-
+            if (error.response) {
+                console.log(error.response.status); // 401
+                console.log(error.response.data);   // error message
+            }
         }
     };
 
@@ -29,7 +31,7 @@ const Login = () => {
             <div>
                 <label className="block mb-1 text-sm font-medium">Email</label>
                 <input
-                    type="email"
+
                     name="email"
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"

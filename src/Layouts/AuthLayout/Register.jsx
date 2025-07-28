@@ -5,7 +5,7 @@ import axios from 'axios';
 import useAuth from '../../Hooks/useAuth';
 
 const Register = () => {
-    const { createUser } = useAuth();
+    const { setUser } = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,7 +15,7 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         try {
-            const userfb = await createUser(email, password);
+
             const user = await axios.post('https://my-sql-server.vercel.app/addUser', {
                 name,
                 images,
@@ -23,8 +23,10 @@ const Register = () => {
                 password,
                 role,
             });
-            toast('Register Successful');
-            console.log("User created:", user.data);
+            setUser(user.data.user)
+            // const userfb = await createUser(email, password);
+            toast.success('Register Successful');
+            console.log("User created:", user.data.user);
             navigate('/');
 
         } catch (error) {
@@ -70,7 +72,7 @@ const Register = () => {
                 <div>
                     <label className="block mb-1 text-sm font-medium">Email</label>
                     <input
-                        type="email"
+
                         name="email"
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"

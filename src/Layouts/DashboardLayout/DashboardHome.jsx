@@ -4,6 +4,8 @@ import axios from "axios";
 
 const DashboardHome = () => {
     const { user } = useAuth();
+    console.log(user);
+
     const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {

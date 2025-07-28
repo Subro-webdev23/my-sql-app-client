@@ -10,7 +10,6 @@ import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import Login from "../Layouts/AuthLayout/Login";
 import Register from "../Layouts/AuthLayout/Register";
 
-const role = "admin";
 
 export const router = createBrowserRouter([
     {
